@@ -18,28 +18,24 @@ public class MonthViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.monthviewactivity);
 
-        final EditText tyear = (EditText)findViewById(R.id.t_year);
-        final EditText tmonth = (EditText)findViewById(R.id.t_month);
         Button sendtoday = (Button) findViewById(R.id.sendtoday);
-        sendtoday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //sendtoday.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+           // public void onClick(View v) {
 
-                String year = tyear.getText().toString();
-                String month = tmonth.getText().toString();
 
                 // Data 객체 생성
-                Data data = new Data(year, month);
+                //Data data = new Data(year, month);
 
                 //Intent에 data객체 저장
 
-                Intent intent = new Intent(MonthViewActivity.this, MainActivity.class);
-                intent.putExtra("data", data);
+              //  Intent intent = new Intent(MonthViewActivity.this, MainActivity.class);
+              //  intent.putExtra("data", data);
 
                 // MainActivity로 전환
-                startActivity(intent);
-            }
-        });
+               // startActivity(intent);
+           // }
+             //   });
     }
 
 }

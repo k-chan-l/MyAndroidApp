@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-/** 카피  */
+
         tvDate = (TextView)findViewById(R.id.tv_date);
         gridView = (GridView)findViewById(R.id.gridview);
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         final Date date = new Date(now);
         //연,월,일을 따로 저장
-        if(data.month == null && data.year == null) {
+
             final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
             final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
             final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
@@ -76,20 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
             //이번달 1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
             mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date)) - 1, 1);
-        }
-        else{
-            tvDate.setText(data.year + "년" + data.month + "월");
-            mCal = Calendar.getInstance();
-
-            int yyear = Integer.parseInt(data.year);
-            int mmonth = Integer.parseInt(data.month) - 1;
-            mCal.set(Calendar.YEAR , yyear);
-            mCal.set(Calendar.MONTH , mmonth);
-            mCal.set(Calendar.DAY_OF_MONTH, 1);
 
 
-
-        }
 
         //gridview 요일 표시
         dayList = new ArrayList<String>();
@@ -192,28 +180,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-/** 여까지 */
-
-
-/**
-        //어댑터 준비 (배열 객체 이용, simple_list_item_1 리소스 사용
-        ArrayAdapter<String> adapt
-                = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                items);
-        ArrayAdapter<String> adapt2
-                = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                items2);
-
-        // id를 바탕으로 화면 레이아웃에 정의된 GridView 객체 로딩
-        GridView gridview = (GridView) findViewById(R.id.gridview1);
-        GridView gridview2 = (GridView) findViewById(R.id.gridview2);
-        // 어댑터를 GridView 객체에 연결
-        gridview.setAdapter(adapt);
-        gridview2.setAdapter(adapt2);
-    }
-}
- */
