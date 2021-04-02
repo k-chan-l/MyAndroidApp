@@ -12,24 +12,22 @@
 
         <Button
             android:id="@+id/button4"
-            android:layout_width="wrap_content"
+            android:layout_width="1dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="이전" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="2021년 3월" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="1dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:gravity="center"
             android:layout_weight="1"
             android:text="다음" />
     </LinearLayout>
@@ -39,24 +37,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#82D182"
-        android:columnWidth="100dp"
+        android:columnWidth="30dp"
+
         android:numColumns="7"
         android:rowCount="1"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
+
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
         />
 
     <GridView
         android:id="@+id/gridview2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnWidth="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnWidth="30dp"
         android:numColumns="7"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth"
+
+        android:verticalSpacing="40dp"
+        android:horizontalSpacing="5dp"
+
         android:gravity="center"
         />
 
