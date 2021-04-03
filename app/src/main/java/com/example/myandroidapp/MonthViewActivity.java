@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,29 +22,29 @@ import java.util.List;
 import java.util.Locale;
 
 
-
 public class MonthViewActivity extends AppCompatActivity {
+    static MyAdapter adapter;
 
-
+    //년도 월을 표시할 텍스트 뷰
     private TextView tvDate;
-    /**
-     * 그리드뷰 어댑터
-     */
+
+
+    //요일 저장 리스트
+    private ArrayList<String> dateList;
+
+    //그리드뷰 어댑터
     private GridAdapter gridAdapter;
 
-    /**
-     * 그리드뷰
-     */
+
+    //그리드뷰
     private GridView gridView;
-    /**
-     * 일 저장 할 리스트
-     */
+
+
+    //일 저장 리스트
     private ArrayList<String> dayList;
 
 
-    /**
-     * 캘린더 변수
-     */
+    //캘린더 변수
     private Calendar mCal;
 
     @Override
@@ -105,20 +104,26 @@ public class MonthViewActivity extends AppCompatActivity {
 
 
         //gridview 요일 표시-------------------------------------------------------------
-        dayList = new ArrayList<String>();
-        dayList.add("일");
-        dayList.add("월");
-        dayList.add("화");
-        dayList.add("수");
-        dayList.add("목");
-        dayList.add("금");
-        dayList.add("토");
-        //--------------------------------------------------------------------------------
+        ArrayList<MyItem> data = new ArrayList<MyItem>();
+        data.add(new MyItem("일"));
+        data.add(new MyItem("월"));
+        data.add(new MyItem("화"));
+        data.add(new MyItem("수"));
+        data.add(new MyItem("목"));
+        data.add(new MyItem("금"));
+        data.add(new MyItem("토"));
 
+        //어댑터 생성
+        adapter = new MyAdapter(this, R.layout.item_weekname, data);
 
+        //어댑터 연결
+        GridView weekView = (GridView)findViewById(R.id.weekday);
+        weekView.setAdapter(adapter);
+        //---------------------------------------------------------------------------------
 
 
         //이번달 1일 무슨요일인지 판단 mCal.set(Year,Month,Day)-----------------------------
+        dayList = new ArrayList<String>();
         int dayNum = mCal.get(Calendar.DAY_OF_WEEK);
         //1일 - 요일 매칭 시키기 위해 공백 add
         for (int i = 1; i < dayNum; i++) {
@@ -131,15 +136,16 @@ public class MonthViewActivity extends AppCompatActivity {
 
 
         //그리드뷰 객체 생성---------------------------------------------------------------
+
         gridAdapter = new GridAdapter(getApplicationContext(), dayList);
         gridView.setAdapter(gridAdapter);
 
         // 항목 클릭 이벤트 처리
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                if((position-dayNum-5)>0)//날짜가 존재 할 경우
-                Toast.makeText(MonthViewActivity.this,mCal.get(Calendar.YEAR)+"."+(mCal.get(Calendar.MONTH) + 1)+"." + (position-dayNum-5),Toast.LENGTH_SHORT).show();//토스트 메시지 출력
-                //position:전체 gridview중 현재 번째, dayNum:위치, 5:첫번째 줄+오차범위
+                if((position-dayNum+2)>0)//날짜가 존재 할 경우
+                Toast.makeText(MonthViewActivity.this,mCal.get(Calendar.YEAR)+"."+(mCal.get(Calendar.MONTH) + 1)+"." + (position-dayNum+2),Toast.LENGTH_SHORT).show();//토스트 메시지 출력
+                //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
             }
         });
         //---------------------------------------------------------------------------------
@@ -161,6 +167,7 @@ public class MonthViewActivity extends AppCompatActivity {
 
     }
     //--------------------------------------------------------------------------------------
+
 
 
 
@@ -226,7 +233,6 @@ public class MonthViewActivity extends AppCompatActivity {
         TextView tvItemGridView;
     }
     //------------------------------------------------------------------------------------------------------
-
 
 
 
