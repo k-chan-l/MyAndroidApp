@@ -50,7 +50,7 @@ public class MonthViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_monthview);
 
         // Data 객체를 받을 Intent 생성------------------------------------------------------------------------------------
         Intent intent = getIntent();
