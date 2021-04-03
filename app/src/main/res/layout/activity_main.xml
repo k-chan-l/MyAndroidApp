@@ -11,10 +11,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/prev"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="btnClick"
             android:text="이전" />
 
         <TextView
@@ -26,10 +27,12 @@
             />
 
         <Button
+            android:id="@+id/next"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
+            android:onClick="btnClick"
             android:text="다음" />
     </LinearLayout>
 
