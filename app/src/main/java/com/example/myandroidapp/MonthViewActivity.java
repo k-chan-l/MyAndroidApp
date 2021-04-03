@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -130,6 +133,15 @@ public class MonthViewActivity extends AppCompatActivity {
         //그리드뷰 객체 생성---------------------------------------------------------------
         gridAdapter = new GridAdapter(getApplicationContext(), dayList);
         gridView.setAdapter(gridAdapter);
+
+        // 항목 클릭 이벤트 처리
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                if((position-dayNum-5)>0)//날짜가 존재 할 경우
+                Toast.makeText(MonthViewActivity.this,mCal.get(Calendar.YEAR)+"."+(mCal.get(Calendar.MONTH) + 1)+"." + (position-dayNum-5),Toast.LENGTH_SHORT).show();//토스트 메시지 출력
+                //position:전체 gridview중 현재 번째, dayNum:위치, 5:첫번째 줄+오차범위
+            }
+        });
         //---------------------------------------------------------------------------------
     }
 
