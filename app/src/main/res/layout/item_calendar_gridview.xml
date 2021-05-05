@@ -3,15 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+
+    android:background="@color/white"
     android:gravity="center">
 
     <TextView
         android:gravity="center_horizontal"
         android:id="@+id/tv_item_gridview"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="105.9dp"
         android:textSize="20sp"
         />
 
 
 </LinearLayout>
+<!--배경색 설정하면 터치효과 사라짐-->

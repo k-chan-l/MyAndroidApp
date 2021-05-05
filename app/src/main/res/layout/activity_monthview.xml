@@ -3,40 +3,10 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/prev"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="btnClick"
-            android:layout_marginLeft="25dp"
-            android:text="이전" />
-
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            />
-
-        <Button
-            android:id="@+id/next"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:onClick="btnClick"
-            android:layout_marginRight="25dp"
-            android:text="다음" />
-    </LinearLayout>
 
     <GridView
         android:id="@+id/weekday"
@@ -44,21 +14,19 @@
         android:layout_height="wrap_content"
         android:numColumns="7"
         android:background="#8BC34A"
+
+        />
+
+    <fragment
+        android:name="com.example.myandroidapp.MonthViewFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        android:id="@+id/fragment"
+
         />
 
 
-    <GridView
-        android:id="@+id/gridview"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:columnWidth="30dp"
-        android:numColumns="7"
-        android:stretchMode="columnWidth"
-
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="5dp"
-
-        android:gravity="center"
-        />
 
 </LinearLayout>
