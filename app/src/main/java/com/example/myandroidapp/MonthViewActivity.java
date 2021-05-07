@@ -2,10 +2,13 @@ package com.example.myandroidapp;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,8 +19,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +60,7 @@ public class MonthViewActivity extends AppCompatActivity {
     //캘린더 변수
     private Calendar mCal;
 
-    // 앱바 이름 현재날짜 표시
+
 
 
     @Override
@@ -88,9 +94,14 @@ public class MonthViewActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthview);
+
+
+
+
+
 
 
         // Data 객체를 받을 Intent 생성------------------------------------------------------------------------------------
@@ -138,7 +149,7 @@ public class MonthViewActivity extends AppCompatActivity {
 //        }
 //        //------------------------------------------------------------------------------------------------
 
-
+        // 앱바 이름 현재날짜 표시
       getSupportActionBar().setTitle(curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월");
       mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date)) - 1, 1);
 
@@ -177,15 +188,30 @@ public class MonthViewActivity extends AppCompatActivity {
         gridAdapter = new GridAdapter(getApplicationContext(), dayList);
         gridView.setAdapter(gridAdapter);
 
+
+
+
+
+//        TextView C =(TextView).findViewById(R.id.tv_item_gridview);
+
         // 항목 클릭 이벤트 처리
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 if ((position - dayNum + 2) > 0 &&  mCal.getActualMaximum(Calendar.DAY_OF_MONTH) >= (position - dayNum + 2))//날짜가 존재 할 경우
+
                     Toast.makeText(MonthViewActivity.this, mCal.get(Calendar.YEAR) + "." + (mCal.get(Calendar.MONTH) + 1) + "." + (position - dayNum + 2), Toast.LENGTH_SHORT).show();//토스트 메시지 출력
+
+//                    C.setBackgroundColor(Color.BLACK);
                 //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
             }
         });
         //---------------------------------------------------------------------------------
+
+//        ViewPager2 vpPager = findViewById(R.id.vpPager);
+//        FragmentStateAdapter adapter = new PagerAdapter(this);
+//        vpPager.setAdapter(adapter);
+//
+//        vpPager.setCurrentItem(1);
     }
 
 

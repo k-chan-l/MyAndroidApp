@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_Month"
+        android:title="월"/>
+    <item
+        android:id="@+id/action_week"
+        android:title="주"/>
+
+</menu>

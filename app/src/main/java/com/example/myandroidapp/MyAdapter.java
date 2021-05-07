@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends BaseAdapter {
@@ -19,6 +21,10 @@ public class MyAdapter extends BaseAdapter {
         mItems = items;
         mResource = resource;
     }
+
+
+
+
 
     // MyAdapter 클래스가 관리하는 항목의 총 개수를 반환
     @Override
@@ -55,4 +61,8 @@ public class MyAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+
+
+
 }
