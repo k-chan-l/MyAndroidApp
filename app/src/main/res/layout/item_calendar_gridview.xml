@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
     android:background="@color/white"
+    android:id="@+id/linear"
     android:gravity="center">
 
     <TextView
         android:gravity="center_horizontal"
         android:id="@+id/tv_item_gridview"
         android:layout_width="match_parent"
-        android:layout_height="105.9dp"
+        android:layout_height="108dp"
         android:textSize="20sp"
 
         />

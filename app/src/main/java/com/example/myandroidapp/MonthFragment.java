@@ -24,9 +24,10 @@ import java.util.List;
  * Use the {@link MonthFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class MonthFragment extends Fragment {
     ArrayList<String> list = new ArrayList<String>();
-
+    private static View temp = null;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,10 +85,13 @@ public class MonthFragment extends Fragment {
         //번들 객체를 이용하여 전달한 인자를 통해 OnClickListner 구현
         monthlyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                        if ((position - dayNum + 2) > 0 &&  getArguments().getInt("Maximum") >= (position - dayNum + 2))//날짜가 존재 할 경우
-
-                            Toast.makeText(getActivity(), getArguments().getInt("Year") + "." + (getArguments().getInt("Month") + 1) + "." + (position - dayNum + 2), Toast.LENGTH_SHORT).show();//토스트 메시지 출력
-
+                        if ((position - dayNum + 2) > 0 &&  getArguments().getInt("Maximum") >= (position - dayNum + 2)) {//날짜가 존재 할 경우
+                            if (temp != null)
+                                temp.setBackgroundColor(getResources().getColor(R.color.white));
+                            v.setBackgroundColor(getResources().getColor(R.color.cyan));
+                            temp = v;
+                            Toast.makeText(getActivity(), getArguments().getInt("Year") + "." + (getArguments().getInt("Month") + 1) + "." + (position - dayNum + 2)+"일", Toast.LENGTH_SHORT).show();//토스트 메시지 출력
+                        }
         //                    C.setBackgroundColor(Color.BLACK);
                         //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
                     }
@@ -98,23 +102,8 @@ public class MonthFragment extends Fragment {
     }
     //--------------------------------------------------------------------------
 
-//    //---Fragment 인자 전달 다음 Fragment시작------------------------------------------------------
-//    //스와이프 할때 사용
-//    public static MonthFragment newInstance(int index){
-//        MonthFragment fragment = new MonthFragment();
-//
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_PARAM1, index);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-//    //---------------------------------------------------------------------------
 
-    //--인터페이스 구현-----------------------
-    // 마우스 클릭 리스너
-    public interface OnDateSelectedListener {
-        public void onDateSelected(int i);
-    }
+
 
     //그리드뷰 어댑터-------------------------------------------------------------------------
     private class GridAdapter extends BaseAdapter {

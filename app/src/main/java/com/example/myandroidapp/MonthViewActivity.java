@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -258,7 +259,6 @@ public class MonthViewActivity extends AppCompatActivity {
         ViewPager2 vpPager = findViewById(R.id.vpPager);
         FragmentActivity that = this;
         FragmentStateAdapter adapter = new PagerAdapter(this, bundle1, bundle2, bundle3);
-
         vpPager.setAdapter(adapter);
 
         vpPager.setCurrentItem(1,false);
