@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MonthFragment">
 
-    android:orientation="vertical">
-
-
-
-    <GridView
-        android:id="@+id/weekday"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="7"
-        android:background="#8BC34A"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
 
-        />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vpPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-<!---
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
@@ -36,5 +24,4 @@
         android:gravity="center"
         />
 
--->
-</LinearLayout>
+</FrameLayout>

@@ -12,7 +12,6 @@
         android:id="@+id/tv_item_gridview"
         android:layout_width="match_parent"
         android:layout_height="105.9dp"
-        android:background="@drawable/day_selector"
         android:textSize="20sp"
 
         />
