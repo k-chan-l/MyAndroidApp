@@ -92,7 +92,6 @@ public class MonthFragment extends Fragment {
                             temp = v;
                             Toast.makeText(getActivity(), getArguments().getInt("Year") + "." + (getArguments().getInt("Month") + 1) + "." + (position - dayNum + 2)+"일", Toast.LENGTH_SHORT).show();//토스트 메시지 출력
                         }
-        //                    C.setBackgroundColor(Color.BLACK);
                         //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
                     }
                 });

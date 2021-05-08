@@ -37,17 +37,11 @@ import java.util.Locale;
 
 public class MonthViewActivity extends AppCompatActivity {
 
+    //Adapter 변수
     static MyAdapter adapter;
-
-    //년도 월을 표시할 텍스트 뷰
-//    private TextView tvDate;
-
 
     //요일 저장 리스트
     private ArrayList<String> dateList;
-
-
-    //일 저장 리스트
 
 
     //캘린더 변수
@@ -64,23 +58,20 @@ public class MonthViewActivity extends AppCompatActivity {
     }
     //----------------------------------------------------
 
-    //
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.item_calendar_gridview);
-    }
-
-
     //옵션바 선택
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_Month:
-                Toast.makeText(getApplicationContext(), "Monthview", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_week:
-                Toast.makeText(getApplicationContext(), "Weekview", Toast.LENGTH_SHORT).show();
+                Intent weekintent = new Intent(getApplicationContext(), WeekViewActivity.class);
+                weekintent.putExtra("year",mCal.get(Calendar.YEAR));
+                weekintent.putExtra("month",mCal.get(Calendar.MONTH));
+                weekintent.putExtra("date",mCal.get(Calendar.DATE));
+                startActivity(weekintent);//새롭게 Activity 시작
+                overridePendingTransition(0, 0);//애니메이션 제거
+                finish();//새 Activity 시작과 동시에 종료
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -93,7 +84,7 @@ public class MonthViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_monthview);
 
 
-//        // Data 객체를 받을 Intent 생성------------------------------------------------------------------------------------
+        // Data 객체를 받을 Intent 생성------------------------------------------------------------------------------------
         Intent intent = getIntent();
         int tag_month = intent.getIntExtra("month", 13);//버튼을 눌러서 다음달로 이동 했을 경우 값을 전달 받는다.
         int tag_year = intent.getIntExtra("year", 0);//버튼을 눌러서 다음달로 이동 햇을 경우 값을 전달 받는다.
@@ -303,6 +294,7 @@ public class MonthViewActivity extends AppCompatActivity {
 
                 if (implicit_intent != null) {
                     startActivity(implicit_intent);//새롭게 Activity 시작
+                    overridePendingTransition(0, 0);//애니메이션 제거
                     finish();//새 Activity 시작과 동시에 현재 월 종료
                 }
             }
