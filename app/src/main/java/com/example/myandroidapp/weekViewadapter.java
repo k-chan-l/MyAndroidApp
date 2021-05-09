@@ -11,12 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends BaseAdapter {
+public class weekViewadapter extends BaseAdapter {
+
     private Context mContext;
     private int mResource;
     private ArrayList<MyItem> mItems = new ArrayList<MyItem>();
 
-    public MyAdapter(Context context, int resource, ArrayList<MyItem> items) {
+    public weekViewadapter(Context context, int resource, ArrayList<MyItem> items) {
         mContext = context;
         mItems = items;
         mResource = resource;
@@ -59,7 +60,8 @@ public class MyAdapter extends BaseAdapter {
         // 어댑터가 관리하는 항목 데이터 중에서 position 위치의 항목의 문자열을 설정 텍스트뷰 객체에 설정
         name.setText(mItems.get(position).nWeek);
 
-
+        if (position == 0)
+            convertView.setBackgroundColor(mContext.getResources().getColor(R.color.white));
 
 
         return convertView;

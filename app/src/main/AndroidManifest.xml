@@ -8,7 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAndroidApp">
-        <activity android:name=".WeekViewActivity"></activity>
+        <activity android:name=".WeekViewActivity" />
         <activity android:name=".MonthViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

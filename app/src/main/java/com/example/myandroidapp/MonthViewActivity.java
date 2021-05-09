@@ -49,6 +49,10 @@ public class MonthViewActivity extends AppCompatActivity {
 
 
 
+    public void date(int a,int b, int c){
+        mCal.set(a, b, c);
+    }
+
     // 옵션 생성 메뉴 --------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,7 +185,7 @@ public class MonthViewActivity extends AppCompatActivity {
         int month2 = (mCal.get(Calendar.MONTH)+1)%12;
         int year2;
         bundle2.putInt("Month",(mCal.get(Calendar.MONTH) + 1) % 12);//다음달 반환
-        if (month2 == 1)//바뀐 MONTH가 11일경우(1월에서 12월로 넘어간경우)
+        if (month2 == 0)//바뀐 MONTH가 11일경우(1월에서 12월로 넘어간경우)
             year2 = mCal.get(Calendar.YEAR)+1;
         else
             year2 = mCal.get(Calendar.YEAR);
@@ -207,7 +211,7 @@ public class MonthViewActivity extends AppCompatActivity {
         int month3 = (mCal.get(Calendar.MONTH)+1)%12;
         int year3;
         bundle3.putInt("Month",(mCal.get(Calendar.MONTH) + 1) % 12);//다음달 반환
-        if (month3 == 1)//바뀐 MONTH가 11일경우(1월에서 12월로 넘어간경우)
+        if (month3 == 0)//바뀐 MONTH가 11일경우(1월에서 12월로 넘어간경우)
             year3 = mCal.get(Calendar.YEAR)+1;
         else
             year3 = mCal.get(Calendar.YEAR);
@@ -286,7 +290,7 @@ public class MonthViewActivity extends AppCompatActivity {
                     //YEAR 인자 전달
                     int YEAR = mCal.get(Calendar.YEAR);//현재 년도 반환
                     if (MONTH == 0)//바뀐 MONTH가 0일경우(12월에서 1월로 넘어간경우)
-                        YEAR++;//년도수를 1줄인다.
+                        YEAR++;//년도수를 1늘린다.
                     intent.putExtra("year", YEAR);//다음 Activity로 전달
 
                     implicit_intent = intent;//implicit_intent에 intent객채를 전달
@@ -322,6 +326,8 @@ public class MonthViewActivity extends AppCompatActivity {
     }
     //--------------------------------------------------------------------------------------
 
+
 }
+
 
 

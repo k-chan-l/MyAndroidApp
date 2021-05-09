@@ -1,6 +1,5 @@
 package com.example.myandroidapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,25 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MonthFragment#newInstance} factory method to
+ * Use the {@link WeekFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-
-public class MonthFragment extends Fragment {
+public class WeekFragment extends Fragment {
     ArrayList<String> list = new ArrayList<String>();
     private static View temp = null;
+    private static View temp2 = null;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +38,9 @@ public class MonthFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MonthFragment() {
+    private static View preview;
+
+    public WeekFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +50,11 @@ public class MonthFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MonthFragment.
+     * @return A new instance of fragment WeekFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MonthFragment newInstance(String param1, String param2) {
-        MonthFragment fragment = new MonthFragment();
+    public static WeekFragment newInstance(String param1, String param2) {
+        WeekFragment fragment = new WeekFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,45 +71,66 @@ public class MonthFragment extends Fragment {
         }
     }
 
-    //--Fragment 생성-----------------------------------------------------------
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //번들 객체를 통해 ArrayList 전달
         list = getArguments().getStringArrayList("Arr");
-        int dayNum = getArguments().getInt("Daynum");
-        View monthView = inflater.inflate(R.layout.fragment_month, container, false);
-        //monthView 객체를 얻어옴
-        GridView monthlyView = monthView.findViewById(R.id.gridview);
+        View weekView = inflater.inflate(R.layout.fragment_week, container, false);
+        //weekView 객체를 얻어옴
+        GridView weeklyView = weekView.findViewById(R.id.gridviewdate);
 
-        monthlyView.setAdapter(new GridAdapter(getActivity(),list));
 
+        for(int j = 0; j < 24; j ++) {
+            list.add(String.format("%d",j));
+            for (int i = 0; i < 7; i++)
+                list.add("");
+        }
+
+        weeklyView.setAdapter(new GridAdapter(getContext(),list));
         //번들 객체를 이용하여 전달한 인자를 통해 OnClickListner 구현
-        monthlyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                        if ((position - dayNum + 2) > 0 &&  getArguments().getInt("Maximum") >= (position - dayNum + 2)) {//날짜가 존재 할 경우
-                            if (temp != null)
-                                temp.setBackgroundColor(getResources().getColor(R.color.white));
-                            v.setBackgroundColor(getResources().getColor(R.color.cyan));
-                            temp = v;
-                            int day = position - dayNum + 2;
-                            int month = getArguments().getInt("Month") + 1;
-                            int year = getArguments().getInt("Year");
-                            Activity act = getActivity();
-                            Toast.makeText(act,  year + "." + month + "." + day +"일", Toast.LENGTH_SHORT).show();//토스트 메시지 출력
 
-                            if (act instanceof MonthViewActivity)
-                                ((MonthViewActivity) act).date(year, (month+11)%12, day);
-                        }
-                        //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
+        weeklyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                if (position%8!=0){
+                    if(position<8){
+                        if (temp != null)
+                            temp.setBackgroundColor(getResources().getColor(R.color.white));
+                        if (preview != null)
+                            preview.setBackgroundColor(getResources().getColor(R.color.white));
+                        v.setBackgroundColor(getResources().getColor(R.color.cyan));
+                        temp = v;
                     }
-                });
+                    else{
+                        if (temp != null)
+                            temp.setBackgroundColor(getResources().getColor(R.color.white));
+                        if (temp2 != null)
+                            temp2.setBackgroundColor(getResources().getColor(R.color.white));
+                        if (preview != null)
+                            preview.setBackgroundColor(getResources().getColor(R.color.white));
+                        View views = parent.getChildAt(position%8);
+                        views.setBackgroundColor(getResources().getColor(R.color.cyan));
+                        preview = views;
+                        v.setBackgroundColor(getResources().getColor(R.color.cyan));
+                        temp2 = v;
+
+                        Toast.makeText(getActivity(), String.format("%d",position), Toast.LENGTH_SHORT).show();//토스트 메시지 출력
+
+
+                    }
+
+
+
+                    //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
+                }
+            }
+
+        });
+
 
         // Inflate the layout for this fragment
-        return monthView;
+        return weekView;
     }
-    //--------------------------------------------------------------------------
-
 
     //그리드뷰 어댑터-------------------------------------------------------------------------
     private class GridAdapter extends BaseAdapter {
@@ -150,10 +172,10 @@ public class MonthFragment extends Fragment {
             ViewHolder holder = null;
 
             if (convertView == null) {
-                convertView = inflater.inflate(R.layout.item_calendar_gridview, parent, false);
+                convertView = inflater.inflate(R.layout.item_calendar_week, parent, false);
                 holder = new ViewHolder();
 
-                holder.tvItemGridView = (TextView) convertView.findViewById(R.id.tv_item_gridview);
+                holder.tvItemGridView = (TextView) convertView.findViewById(R.id.tv_item_gridviewweek);
 
                 convertView.setTag(holder);
             } else {
