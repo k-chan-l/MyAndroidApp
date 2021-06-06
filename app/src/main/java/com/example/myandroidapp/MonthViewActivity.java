@@ -25,6 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +55,10 @@ public class MonthViewActivity extends AppCompatActivity {
     public void date(int a,int b, int c){
         mCal.set(a, b, c);
     }
+
+
+
+
 
     // 옵션 생성 메뉴 --------------------------------------
     @Override
@@ -86,6 +93,8 @@ public class MonthViewActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthview);
+
+
 
 
         // Data 객체를 받을 Intent 생성------------------------------------------------------------------------------------
@@ -305,7 +314,19 @@ public class MonthViewActivity extends AppCompatActivity {
         });
         // ----------------------------------------------------------------------------------
 
+
+
+        //
+
+
+
+
+
+
+
+
     }
+
 
 
     // ----캘린더 날짜 계산 함수-------------------------------------------------------------------
@@ -325,6 +346,9 @@ public class MonthViewActivity extends AppCompatActivity {
 
     }
     //--------------------------------------------------------------------------------------
+
+
+
 
 
 }

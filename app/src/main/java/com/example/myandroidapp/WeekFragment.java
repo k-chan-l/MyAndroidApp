@@ -1,6 +1,7 @@
 package com.example.myandroidapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +126,17 @@ public class WeekFragment extends Fragment {
 
                     //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
                 }
+                //버튼 함수 PPPP
+                FloatingActionButton fab = weekView.findViewById(R.id.fab);
+
+                fab.setOnClickListener((view) ->{
+
+                    Intent intent = new Intent(getActivity(), add_activity.class);
+                    startActivity(intent);
+
+                });
             }
+
 
         });
 

@@ -2,6 +2,7 @@ package com.example.myandroidapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,9 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.Year;
 import java.util.ArrayList;
@@ -68,7 +72,16 @@ public class MonthFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
+
+
     }
+
+
+
+
 
     //--Fragment 생성-----------------------------------------------------------
     @Override
@@ -97,16 +110,42 @@ public class MonthFragment extends Fragment {
                             Activity act = getActivity();
                             Toast.makeText(act,  year + "." + month + "." + day +"일", Toast.LENGTH_SHORT).show();//토스트 메시지 출력
 
+
+
+
+
                             if (act instanceof MonthViewActivity)
                                 ((MonthViewActivity) act).date(year, (month+11)%12, day);
+
+
+
                         }
                         //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
+
+                        //버튼 함수  PPPP
+                        FloatingActionButton fab = monthView.findViewById(R.id.fab);
+
+                        fab.setOnClickListener((view) ->{
+
+
+
+
+
+                            Intent intent = new Intent(getActivity(), add_activity.class);
+                            startActivity(intent);
+                        });
                     }
                 });
+
+
+
 
         // Inflate the layout for this fragment
         return monthView;
     }
+
+
+
     //--------------------------------------------------------------------------
 
 

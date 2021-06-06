@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".add_activity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제목"
+            android:layout_margin="10dp"
+            />
+
+        <EditText
+            android:id="@+id/sel"
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:layout_margin="40dp"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="시작" />
+
+        <TimePicker
+            android:id="@+id/TPK"
+            android:layout_width="wrap_content"
+            android:layout_height="91dp"
+            android:timePickerMode="spinner" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="40dp"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="종료" />
+
+        <TimePicker
+            android:id="@+id/TPK"
+            android:layout_width="wrap_content"
+            android:layout_height="104dp"
+            android:timePickerMode="spinner" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/Ed"
+            android:layout_width="259dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="찾기"
+            />
+
+
+    </LinearLayout>
+    <fragment
+        android:id="@+id/map"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="20dp"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        tools:context="com.example.abcd.googlemap.add_activity" />
+
+    <EditText
+        android:layout_width="259dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/SVbt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="저장">
+        </Button>
+
+        <Button
+            android:id="@+id/CAbt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="취소">
+
+        </Button>
+
+        <Button
+            android:id="@+id/DEbt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="삭제">
+
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>
