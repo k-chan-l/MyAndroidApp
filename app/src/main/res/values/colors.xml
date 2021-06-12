@@ -9,6 +9,7 @@
     <color name="cyan">#00ffff</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color_ffffff">#ff000000</color>
+    <color name="lime">#BDE821</color>
     <drawable name="bg_select">#00ffff</drawable>
     <drawable name="bg">#ffffffff</drawable>
 

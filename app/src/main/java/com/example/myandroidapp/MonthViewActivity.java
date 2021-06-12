@@ -50,7 +50,7 @@ public class MonthViewActivity extends AppCompatActivity {
     //캘린더 변수
     private Calendar mCal;
 
-
+    private DBHelper mDbHelper;
 
     public void date(int a,int b, int c){
         mCal.set(a, b, c);
@@ -94,7 +94,7 @@ public class MonthViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthview);
 
-
+        mDbHelper = new DBHelper(this);
 
 
         // Data 객체를 받을 Intent 생성------------------------------------------------------------------------------------

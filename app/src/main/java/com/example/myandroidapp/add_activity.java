@@ -5,9 +5,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -41,15 +43,31 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class add_activity extends AppCompatActivity
-        {
+public class add_activity extends AppCompatActivity{
+    final static String TAG2="SQLITEDBTEST";
 
+    private DBHelper mDbHelper;
     private static final String TAG = "add_activity";
+
+    String title;
+    String mem;
+    int edMinute;
+    int edHour;
+    int stMinute;
+    int stHour;
 
     SupportMapFragment mapFragment;
     GoogleMap map;
     private Button btnKor2Loc;
     private EditText editText;
+    private EditText memo;
+    private TimePicker start;
+    private TimePicker end;
+    private int tag_year;
+    private int tag_month;
+    private int tag_date;
+    private int tag_id;
+
 
     MarkerOptions myMarker;
 
@@ -58,33 +76,54 @@ public class add_activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        mDbHelper = new DBHelper(this);
 
         Intent intent = getIntent();
-        int tag_month = intent.getIntExtra("month", 13);//버튼을 눌러서 다음달로 이동 했을 경우 값을 전달 받는다.
-        int tag_year = intent.getIntExtra("year", 0);//버튼을 눌러서 다음달로 이동 햇을 경우 값을 전달 받는다.
-
 
         checkDangerousPermissions();
-
-        long now = System.currentTimeMillis();
-        final Date date = new Date(now);
-
-        final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
-        final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
-        final SimpleDateFormat curHourFormat = new SimpleDateFormat("HH", Locale.KOREA);
-        int tag_date = intent.getIntExtra("day", 0);
-
         getSupportActionBar().setTitle("CalendarApp");
         EditText ed = (EditText) findViewById(R.id.sel);
-        ed.setText(curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월" + curHourFormat.format(date) +"시"  , TextView.BufferType.EDITABLE);
+        Cursor cursor;
 
-
-
-
-
+        tag_id = intent.getIntExtra("id",0);
         editText = findViewById(R.id.Ed);
-
         btnKor2Loc = findViewById(R.id.button2);
+        memo = findViewById(R.id.memo);
+        start = findViewById(R.id.TPKst);
+        end = findViewById(R.id.TPKend);
+
+        if(tag_id == 0) {
+            tag_month = intent.getIntExtra("month", 13);//버튼을 눌러서 다음달로 이동 했을 경우 값을 전달 받는다.
+            tag_year = intent.getIntExtra("year", 0);//버튼을 눌러서 다음달로 이동 햇을 경우 값을 전달 받는다.
+            tag_date = intent.getIntExtra("date", 0);
+            if(intent.getIntExtra("time", 24) != 24) {
+                start.setHour(intent.getIntExtra("time", 24));
+                start.setMinute(0);
+            }
+
+            ed.setText(tag_year + "년 " + tag_month + "월" + tag_date + "일", TextView.BufferType.EDITABLE);
+        }
+        else {
+            cursor = mDbHelper.getIDBySQL(tag_id);
+            if (cursor.moveToNext()) {
+                title = cursor.getString(1);
+                mem = cursor.getString(2);
+                tag_year = cursor.getInt(3);
+                tag_month = cursor.getInt(4);
+                tag_date = cursor.getInt(5);
+                edMinute = cursor.getInt(6);
+                edHour = cursor.getInt(7);
+                stMinute = cursor.getInt(8);
+                stHour = cursor.getInt(9);
+            }
+            ed.setText(title);
+            memo.setText(mem);
+            start.setHour(stHour);
+            start.setMinute(stMinute);
+            end.setHour(edHour);
+            end.setMinute(edMinute);
+        }
+
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -117,14 +156,66 @@ public class add_activity extends AppCompatActivity
 
                     showCurrentLocation(location);
 
-                    //PPPP
-                    //map.addMarker(myMarker);
 
 
                 }
 
             }
 
+        });
+
+        Button save = findViewById(R.id.SVbt);
+        Button cancel = findViewById(R.id.CAbt);
+        Button delete = findViewById(R.id.DEbt);
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                title = ed.getText().toString();
+                mem = memo.getText().toString();
+                edMinute = end.getMinute();
+                edHour = end.getHour();
+                stMinute = start.getMinute();
+                stHour = start.getHour();
+
+                if(title == null) {
+                    Log.e(TAG, "error tilte is null");
+                    return;
+                }
+
+                if(tag_id == 0)
+                    insertRecord(title, mem, tag_year, tag_month, tag_date, edMinute, edHour, stMinute, stHour);
+                else
+                    updateRecord(tag_id, title, mem, tag_year, tag_month, tag_date, edMinute, edHour, stMinute, stHour);
+
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("Result", 1);
+                setResult(RESULT_OK, resultIntent);
+                finish();
+
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                finish();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tag_id == 0)
+                    finish();
+                deleteRecord(tag_id);
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("Result", 1);
+                setResult(RESULT_OK, resultIntent);
+
+                finish();
+            }
         });
 
 
@@ -155,42 +246,10 @@ public class add_activity extends AppCompatActivity
 
     }
 
-    private void requestMyLocation() {
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        try {
-            long minTime = 1000;    //갱신 시간
-            float minDistance = 0;  //갱신에 필요한 최소 거리
-
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    showCurrentLocation(location);
-                }
-
-                @Override
-                public void onStatusChanged(String s, int i, Bundle bundle) {
-
-                }
-
-                @Override
-                public void onProviderEnabled(String s) {
-
-                }
-
-                @Override
-                public void onProviderDisabled(String s) {
-
-                }
-            });
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void showCurrentLocation(Location location) {
         LatLng curPoint = new LatLng(location.getLatitude(), location.getLongitude());
         String msg = "Latitutde : " + curPoint.latitude
-                + "\nLongitude : " + curPoint.longitude;
+                + "\n : " + curPoint.longitude;
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
         //화면 확대, 숫자가 클수록 확대
@@ -256,6 +315,19 @@ public class add_activity extends AppCompatActivity
 
         }
     }
+
+    private void insertRecord(String title, String mem, int year, int month, int date, int edMinute, int edHour, int stMinute, int stHour) {
+            mDbHelper.insertUserBySQL(title, mem, year, month, date, edMinute, edHour, stMinute, stHour);
+    }
+
+    private void updateRecord(int id, String title, String memo, int year, int month, int date, int endminute, int endhour, int startminute, int starthour) {
+        mDbHelper.updateUserBySQL(id, title, memo, year, month, date, endminute, endhour, startminute, starthour);
+    }
+
+    private void deleteRecord(int id){
+        mDbHelper.deleteUserBySQL(id);
+    }
+
 }
 
 
