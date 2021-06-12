@@ -160,9 +160,6 @@ public class WeekFragment extends Fragment {
                         temp2 = v;
 
 
-                        Toast.makeText(getActivity(), String.format("%d",position), Toast.LENGTH_SHORT).show();//토스트 메시지 출력
-
-
                     //position:전체 gridview중 현재 번째, dayNum:위치, 2:첫번째 줄+오차범위
                 }
                 //버튼 함수 PPPP
