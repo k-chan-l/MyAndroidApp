@@ -155,7 +155,8 @@ public class WeekFragment extends Fragment {
                                 ca_id.add(cursor.getInt(0));
 
                             }
-                            show(ListItems, ca_id, year, month+1, position % 8+ day, position/8 -1 );
+                            if(!(ListItems.isEmpty() | ca_id.isEmpty()))
+                                show(ListItems, ca_id, year, month+1, position % 8+ day, position/8 -1 );
                         }
                         temp2 = v;
 

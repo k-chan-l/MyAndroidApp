@@ -6,7 +6,9 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -39,6 +41,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -99,9 +102,16 @@ public class add_activity extends AppCompatActivity{
             if(intent.getIntExtra("time", 24) != 24) {
                 start.setHour(intent.getIntExtra("time", 24));
                 start.setMinute(0);
+                end.setHour(intent.getIntExtra("time",24)+1);
+                end.setMinute(0);
+            }
+            else{
+                start.setMinute(0);
+                end.setHour(start.getHour()+1);
+                end.setMinute(0);
             }
 
-            ed.setText(tag_year + "년 " + tag_month + "월" + tag_date + "일", TextView.BufferType.EDITABLE);
+            ed.setText(tag_year + "년 " + tag_month + "월" + tag_date + "일" + start.getHour() + "시", TextView.BufferType.EDITABLE);
         }
         else {
             cursor = mDbHelper.getIDBySQL(tag_id);
@@ -207,14 +217,7 @@ public class add_activity extends AppCompatActivity{
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tag_id == 0)
-                    finish();
-                deleteRecord(tag_id);
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("Result", 1);
-                setResult(RESULT_OK, resultIntent);
-
-                finish();
+                show();
             }
         });
 
@@ -328,7 +331,34 @@ public class add_activity extends AppCompatActivity{
         mDbHelper.deleteUserBySQL(id);
     }
 
+    void show()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("AlertDialog Title");
+        builder.setMessage("AlertDialog Content");
+        builder.setPositiveButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.setNegativeButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(tag_id == 0)
+                            finish();
+                        deleteRecord(tag_id);
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("Result", 1);
+                        setResult(RESULT_OK, resultIntent);
+
+                        finish();
+                    }
+                });
+        builder.show();
+    }
+
 }
+
 
 
 

@@ -131,7 +131,8 @@ public class MonthFragment extends Fragment {
 
 
                                 }
-                                show(ListItems, ca_id, y, m, position - dayNum + 2);
+                                if(!(ListItems.isEmpty() | ca_id.isEmpty()))
+                                    show(ListItems, ca_id, y, m, position - dayNum + 2);
                             }
 
 

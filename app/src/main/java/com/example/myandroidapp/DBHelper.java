@@ -93,25 +93,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getAllUsersBySQL() {
-        String sql = "Select * FROM " + UserContract.Users.TABLE_NAME;
-        return getReadableDatabase().rawQuery(sql,null);
-    }
-
-    public long insertUserByMethod(String title, String memo) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(UserContract.Users.KEY_NAME, title);
-        values.put(UserContract.Users.KEY_MEMO, memo);
-
-        return db.insert(UserContract.Users.TABLE_NAME,null,values);
-    }
-
-    public Cursor getAllUsersByMethod() {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.query(UserContract.Users.TABLE_NAME,null,null,null,null,null,null);
-    }
-
     public Cursor getCurentDayBySQL(int year, int month, int day) {
         String sql = "Select * FROM " + UserContract.Users.TABLE_NAME + " Where Month = " + month + " and Year = " + year + " and Date = " + day;
         return getReadableDatabase().rawQuery(sql,null);
